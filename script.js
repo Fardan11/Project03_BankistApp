@@ -61,6 +61,49 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = ''; // to insert new elements
+
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+      <div class="movements__value">${mov}</div>
+
+    </div>
+    `;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovements(account1.movements);
+
+/* we will create initial userName
+-then will loop over and take the first letter
+-then store it in a new array
+- then join it as a single string of those
+
+*/
+// const user = 'Steven Thomas Williams'; //stw
+
+const createUsername = function (accs) {
+  accs.forEach(function (acc) {
+    acc.userName = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(word => word[0]) //simplify the callback ->delete funtion, the braces, th return
+
+      .join('');
+  });
+};
+
+createUsername(accounts);
+console.log(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -74,3 +117,49 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+// for (let i = 0; i <= movements.length; i++) {
+//   console.log(movements[i]);
+// }
+
+// for (const movement of movements) {
+//   if (movement > 0) {
+//     console.log(`You deposited ${movement}`);
+//   } else {
+//     console.log(` You withdrew ${movement}`);
+//   }
+// }
+
+// movements.forEach(function (mov, i, arr) {
+//   // giving the forEach instructions through a callback function
+
+//   for (const mov of mov) {
+//     if (mov > 0) {
+//       console.log(`You deposited ${mov}`);
+//     } else {
+//       console.log(` You withdrew ${mov}`);
+//     }
+//   }
+// });
+
+// BREAK DOESNT WORK IN FOREACH**
+
+//Map
+const EuroToUSD = 1.1;
+
+const movementUSD = movements.map(function (mov, i) {
+  return mov * EuroToUSD;
+});
+
+console.log(movementUSD);
+
+const deposits = movements.filter(function (mov) {
+  return mov > 0;
+});
+console.log(movements);
+console.log(deposits);
+
+const withdrawals = movements.filter(function (mov) {
+  return mov < 0;
+});
+console.log(withdrawals);
