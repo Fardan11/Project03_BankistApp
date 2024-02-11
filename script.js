@@ -89,6 +89,13 @@ displayMovements(account1.movements);
 
 */
 // const user = 'Steven Thomas Williams'; //stw
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce(function (acc, mov) {
+    return acc + mov;
+  }, 0);
+  labelBalance.textContent = `${balance} Euro`;
+};
+calcDisplayBalance(account1.movements);
 
 const createUsername = function (accs) {
   accs.forEach(function (acc) {
@@ -144,22 +151,49 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // BREAK DOESNT WORK IN FOREACH**
 
-//Map
-const EuroToUSD = 1.1;
+//Map method
+// const EuroToUSD = 1.1;
 
-const movementUSD = movements.map(function (mov, i) {
-  return mov * EuroToUSD;
-});
+// const movementUSD = movements.map(function (mov, i) {
+//   return mov * EuroToUSD;
+// });
 
-console.log(movementUSD);
+// console.log(movementUSD);
 
-const deposits = movements.filter(function (mov) {
-  return mov > 0;
-});
-console.log(movements);
-console.log(deposits);
+// //reduce method
+// const deposits = movements.filter(function (mov) {
+//   return mov > 0;
+// });
+// console.log(movements);
+// console.log(deposits);
 
-const withdrawals = movements.filter(function (mov) {
-  return mov < 0;
-});
-console.log(withdrawals);
+// const withdrawals = movements.filter(function (mov) {
+//   return mov < 0;
+// });
+// console.log(withdrawals);
+
+//reduce method  (accumulator,index,)
+//accumulator is like a snowball ,it grows w snow
+
+// const balance = movements.reduce(function (acc, cur, i, arr) {
+//   return acc + cur; //in the callback, it keeps adding to the accumulator
+// }, 0); // initial value of the accumulator
+
+// console.log(balance);
+
+//maximum Value   // acc=accumulator, mov=current
+// const max = movements.reduce(function (acc, mov) {
+//   if (acc > mov) {
+//     return acc;
+//   } else {
+//     return mov;
+//   }
+// }, movements[0]);
+
+// FIND method
+
+movements.find(mov => mov<0)
+
+const arrow =(name)=>{
+  return ()
+}
